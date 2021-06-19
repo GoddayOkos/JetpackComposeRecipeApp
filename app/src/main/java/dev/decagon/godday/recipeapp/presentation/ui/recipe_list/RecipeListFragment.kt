@@ -1,4 +1,4 @@
-package dev.decagon.godday.recipeapp
+package dev.decagon.godday.recipeapp.presentation.ui.recipe_list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 
-class AnotherTestFragment: Fragment() {
+class RecipeListFragment: Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

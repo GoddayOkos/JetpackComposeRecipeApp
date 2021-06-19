@@ -7,11 +7,11 @@
 
     <fragment
         android:id="@+id/testFragment"
-        android:name="dev.decagon.godday.recipeapp.TestFragment"
+        android:name="dev.decagon.godday.recipeapp.presentation.ui.recipe.RecipeFragment"
         android:label="fragment_test"
         tools:layout="@layout/fragment_test" />
     <fragment
         android:id="@+id/anotherTestFragment"
-        android:name="dev.decagon.godday.recipeapp.AnotherTestFragment"
+        android:name="dev.decagon.godday.recipeapp.presentation.ui.recipe_list.RecipeListFragment"
         android:label="AnotherTestFragment" />
 </navigation>

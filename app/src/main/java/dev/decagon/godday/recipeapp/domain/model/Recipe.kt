@@ -1,6 +1,5 @@
 package dev.decagon.godday.recipeapp.domain.model
 
-import android.icu.text.CaseMap
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
