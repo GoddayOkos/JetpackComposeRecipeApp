@@ -32,7 +32,7 @@ object NetworkModule {
 
         return Retrofit.Builder()
             .client(OkHttpClient.Builder().addInterceptor(authorizationHeader).build())
-            .baseUrl("https://food2fork.ca/api/recipe")
+            .baseUrl("https://food2fork.ca/api/recipe/")
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build()
             .create(RecipeService::class.java)
