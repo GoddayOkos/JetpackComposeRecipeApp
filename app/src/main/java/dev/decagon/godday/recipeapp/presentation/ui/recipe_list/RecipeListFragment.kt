@@ -65,17 +65,28 @@ class RecipeListFragment: Fragment() {
                         onSelectedCategoryChanged = viewModel::onSelectedCategoryChanged,
                         onChangeCategoryScrollPosition = viewModel::onChangeCategoryScrollPosition
                     )
-                    PulsingDemo()
-//                    Box(modifier = Modifier.fillMaxSize()) {
-//                        LazyColumn {
-//                            itemsIndexed(items = recipes) { _, recipe ->
-//                                RecipeCard(recipe = recipe) {
-//                                    /* TODO */
-//                                }
-//                            }
-//                        }
-//                        CircularIndeterminateProgressBar(isDisplayed = loading)
-//                    }
+
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        if (loading) {
+                            ShimmerRecipeCardItem(
+                                colors = listOf(
+                                    Color.LightGray.copy(alpha = 0.9f),
+                                    Color.LightGray.copy(alpha = 0.2f),
+                                    Color.LightGray.copy(alpha = 0.9f)
+                                ),
+                                imageHeight = 250.dp
+                            )
+                        } else {
+                            LazyColumn {
+                                itemsIndexed(items = recipes) { _, recipe ->
+                                    RecipeCard(recipe = recipe) {
+                                        /* TODO */
+                                    }
+                                }
+                            }
+                        }
+                        CircularIndeterminateProgressBar(isDisplayed = loading)
+                    }
                 }
             }
         }
