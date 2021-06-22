@@ -30,9 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import dev.decagon.godday.recipeapp.presentation.composables.FoodCategoryChips
-import dev.decagon.godday.recipeapp.presentation.composables.RecipeCard
-import dev.decagon.godday.recipeapp.presentation.composables.SearchAppBar
+import dev.decagon.godday.recipeapp.presentation.composables.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -52,6 +50,7 @@ class RecipeListFragment: Fragment() {
                 val selectedCategory = viewModel.selectedCategory.value
                 val scrollState = rememberScrollState()
                 val coroutineScope = rememberCoroutineScope()
+                val loading = viewModel.loading.value
                 
                 Column {
                     SearchAppBar(
@@ -66,13 +65,17 @@ class RecipeListFragment: Fragment() {
                         onSelectedCategoryChanged = viewModel::onSelectedCategoryChanged,
                         onChangeCategoryScrollPosition = viewModel::onChangeCategoryScrollPosition
                     )
-                    LazyColumn {
-                        itemsIndexed(items = recipes) { _, recipe ->
-                            RecipeCard(recipe = recipe) {
-                                /* TODO */
-                            }
-                        }
-                    }
+                    PulsingDemo()
+//                    Box(modifier = Modifier.fillMaxSize()) {
+//                        LazyColumn {
+//                            itemsIndexed(items = recipes) { _, recipe ->
+//                                RecipeCard(recipe = recipe) {
+//                                    /* TODO */
+//                                }
+//                            }
+//                        }
+//                        CircularIndeterminateProgressBar(isDisplayed = loading)
+//                    }
                 }
             }
         }
