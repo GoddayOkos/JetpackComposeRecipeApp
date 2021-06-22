@@ -19,15 +19,31 @@ class RecipeListViewModel
     val query =  mutableStateOf("")
     val selectedCategory: MutableState<FoodCategory?> = mutableStateOf(null)
     var categoryScrollPosition = 0
+    val loading = mutableStateOf(false)
 
     init {
         newSearch()
     }
 
+    private fun clearSelectedCategory() {
+        selectedCategory.value = null
+    }
+
+    private fun resetSearchState() {
+        recipes.value = listOf()
+        if (selectedCategory.value?.value != query.value) {
+            clearSelectedCategory()
+        }
+    }
+
     fun newSearch() {
+        loading.value = true
+        resetSearchState()
         viewModelScope.launch {
             val result = repository.search(1, query.value)
             recipes.value = result
+
+            loading.value = false
         }
     }
 
