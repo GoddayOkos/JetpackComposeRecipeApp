@@ -43,6 +43,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.decagon.godday.recipeapp.presentation.BaseApplication
 import dev.decagon.godday.recipeapp.presentation.composables.*
 import dev.decagon.godday.recipeapp.presentation.ui.theme.RecipeAppTheme
+import dev.decagon.godday.recipeapp.utils.SnackbarController
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -52,6 +53,8 @@ class RecipeListFragment: Fragment() {
 
     @Inject
     lateinit var application: BaseApplication
+
+    private val snackbarController = SnackbarController(lifecycleScope)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -77,10 +80,11 @@ class RecipeListFragment: Fragment() {
                                 onQueryChanged = viewModel::onQueryChanged,
                                 onExecuteSearch = {
                                    if (viewModel.selectedCategory.value?.value == "Milk") {
-                                       lifecycleScope.launch {
-                                           scaffoldState.snackbarHostState.showSnackbar(
+                                       snackbarController.getScope().launch {
+                                           snackbarController.showSnackbar(
+                                               scaffoldState = scaffoldState,
                                                message = "Invalid category: MILK!",
-                                               actionLabel = "Hide",
+                                               actionLabel = "Hide"
                                            )
                                        }
                                    } else {

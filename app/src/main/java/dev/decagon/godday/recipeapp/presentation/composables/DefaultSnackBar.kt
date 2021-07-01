@@ -24,7 +24,7 @@ fun DefaultSnackBar(
                         TextButton(onClick = { onDismiss() }) {
                             Text(
                                 text = actionLabel!!,
-                                style = MaterialTheme.typography.h2,
+                                style = MaterialTheme.typography.body2,
                                 color = Color.White
                             )
                         }
@@ -33,7 +33,7 @@ fun DefaultSnackBar(
             ) {
                 Text(
                     text = snackbarData.message,
-                    style = MaterialTheme.typography.h2,
+                    style = MaterialTheme.typography.body2,
                     color = Color.White
                 )
             }
