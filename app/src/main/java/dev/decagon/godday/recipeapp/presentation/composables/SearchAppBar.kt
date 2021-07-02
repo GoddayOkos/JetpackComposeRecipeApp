@@ -75,7 +75,8 @@ fun SearchAppBar(
                     ),
                     textStyle = MaterialTheme.typography.button,
                     colors = TextFieldDefaults.textFieldColors(
-                        backgroundColor = MaterialTheme.colors.surface
+                        backgroundColor = MaterialTheme.colors.surface,
+                        textColor = Color.DarkGray
                     )
                 )
                 ConstraintLayout(
