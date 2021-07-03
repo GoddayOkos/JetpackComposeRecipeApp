@@ -16,13 +16,21 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
+import dev.decagon.godday.recipeapp.presentation.ui.recipe.RecipeEvent.GetRecipeEvent
 import java.nio.file.WatchEvent
 
 @AndroidEntryPoint
 class RecipeFragment : Fragment() {
     private val args: RecipeFragmentArgs by navArgs()
+    private val viewModel: RecipeViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.onTriggerEvent(GetRecipeEvent(args.recipeId))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,8 +38,9 @@ class RecipeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         return ComposeView(requireContext()).apply {
-            val recipeId = args.recipeId
             setContent {
+                val loading = viewModel.loading.value
+                val recipe = viewModel.recipe.value
                 Column(
                     modifier = Modifier
                         .padding(16.dp)
@@ -40,7 +49,7 @@ class RecipeFragment : Fragment() {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Selected recipeId: $recipeId",
+                        text = "Selected recipe: ${recipe?.title ?: "Loading..."}",
                         color = Color.Green,
                         fontSize = 21.sp
                     )
