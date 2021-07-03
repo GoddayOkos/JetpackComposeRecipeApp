@@ -52,7 +52,7 @@ class RecipeViewModel @Inject constructor(
         loading.value = true
 
         // simulate network delay
-       // delay(1000)
+        delay(1000)
 
         val recipe = repository.get(id)
         this.recipe.value = recipe
