@@ -5,11 +5,13 @@ A recipe application which display list of recipe from the api https://food2fork
 ## Technology and Major Features
 - Kotlin
 - MVVM Architecture
+- Coroutines for asynchronous tasks
+- Glide for loading images
 - Jetpack Compose for UI
 - MutableState inplace of LiveData
 - Hilt for dependency injection
 - Navigation Components and SafeArgs
-- Retrofit2
+- Retrofit2 for making network requests
 - Single Activity Architecture
 - App Themes (Light and Dark mode)
 - Custom Fonts
