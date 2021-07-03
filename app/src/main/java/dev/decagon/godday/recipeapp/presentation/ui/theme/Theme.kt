@@ -1,12 +1,20 @@
 package dev.decagon.godday.recipeapp.presentation.ui.theme
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import dev.decagon.godday.recipeapp.presentation.composables.CircularIndeterminateProgressBar
+import dev.decagon.godday.recipeapp.presentation.composables.DefaultSnackBar
 
 @SuppressLint("ConflictingOnColor")
 private val LightThemeColors = lightColors(
@@ -40,12 +48,28 @@ private val DarkThemeColors = darkColors(
 @Composable
 fun RecipeAppTheme(
     darkTheme: Boolean,
+    loading: Boolean,
+    scaffoldState: ScaffoldState,
     content: @Composable () -> Unit,
 ) {
     MaterialTheme(
         colors = if (darkTheme) DarkThemeColors else LightThemeColors,
-        content = content,
         typography = Typography,
         shapes = Shapes
-    )
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = if (!darkTheme) Grey1 else Color.Black)
+        ) {
+            content()
+            CircularIndeterminateProgressBar(isDisplayed = loading)
+            DefaultSnackBar(
+                snackbarHostState = scaffoldState.snackbarHostState,
+                modifier = Modifier.align(Alignment.BottomCenter)
+            ) {
+                scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+            }
+        }
+    }
 }
