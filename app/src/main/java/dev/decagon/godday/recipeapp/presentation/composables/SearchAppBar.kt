@@ -73,10 +73,9 @@ fun SearchAppBar(
                             focusManager.clearFocus()
                         }
                     ),
-                    textStyle = MaterialTheme.typography.button,
+                    textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
                     colors = TextFieldDefaults.textFieldColors(
-                        backgroundColor = MaterialTheme.colors.surface,
-                        textColor = Color.DarkGray
+                        backgroundColor = MaterialTheme.colors.surface
                     )
                 )
                 ConstraintLayout(
