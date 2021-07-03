@@ -42,6 +42,7 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import dev.decagon.godday.recipeapp.presentation.BaseApplication
 import dev.decagon.godday.recipeapp.presentation.composables.*
+import dev.decagon.godday.recipeapp.presentation.ui.recipe_list.RecipeListEvent.*
 import dev.decagon.godday.recipeapp.presentation.ui.theme.RecipeAppTheme
 import dev.decagon.godday.recipeapp.utils.SnackbarController
 import kotlinx.coroutines.launch
@@ -89,7 +90,7 @@ class RecipeListFragment: Fragment() {
                                            )
                                        }
                                    } else {
-                                       viewModel.newSearch()
+                                       viewModel.onTriggerEvent(NewSearchEvent)
                                    }
                                 },
                                 focusManager = focusManager,
@@ -126,7 +127,7 @@ class RecipeListFragment: Fragment() {
                                     itemsIndexed(items = recipes) { index, recipe ->
                                         viewModel.onChangeRecipeScrollPosition(index)
                                         if ((index + 1) >= page * PAGE_SIZE && !loading) {
-                                            viewModel.getNextPage()
+                                            viewModel.onTriggerEvent(NextPageEvent)
                                         }
                                         RecipeCard(recipe = recipe) {
                                             /* TODO */
