@@ -111,6 +111,8 @@ class RecipeListViewModel
     private suspend fun newSearch() {
         loading.value = true
         resetSearchState()
+        // Fake delay, because the api is fast
+        delay(1000)
         val result = repository.search(1, query.value)
         recipes.value = result
 

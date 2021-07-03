@@ -22,6 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.decagon.godday.recipeapp.presentation.BaseApplication
 import dev.decagon.godday.recipeapp.presentation.composables.CircularIndeterminateProgressBar
 import dev.decagon.godday.recipeapp.presentation.composables.DefaultSnackBar
+import dev.decagon.godday.recipeapp.presentation.composables.LoadRecipeShimmer
 import dev.decagon.godday.recipeapp.presentation.composables.RecipeView
 import dev.decagon.godday.recipeapp.presentation.ui.recipe.RecipeEvent.GetRecipeEvent
 import dev.decagon.godday.recipeapp.presentation.ui.theme.RecipeAppTheme
@@ -54,7 +55,11 @@ class RecipeFragment : Fragment() {
                 val recipe = viewModel.recipe.value
                 val scaffoldState = rememberScaffoldState()
                 
-                RecipeAppTheme(darkTheme = application.isDark.value) {
+                RecipeAppTheme(
+                    darkTheme = application.isDark.value,
+                    loading = loading,
+                    scaffoldState = scaffoldState
+                ) {
                     Scaffold(
                         scaffoldState = scaffoldState,
                         snackbarHost = { scaffoldState.snackbarHostState }
@@ -63,7 +68,7 @@ class RecipeFragment : Fragment() {
                             modifier = Modifier.fillMaxSize()
                         ) {
                             if (loading && recipe == null) {
-                                Text(text = "Loading...")
+                                LoadRecipeShimmer()
                             } else {
                                 recipe?.let {
                                     if (it.id == 1) {
@@ -76,13 +81,6 @@ class RecipeFragment : Fragment() {
                                         RecipeView(recipe = it)
                                     }
                                 }
-                            }
-                            CircularIndeterminateProgressBar(isDisplayed = loading)
-                            DefaultSnackBar(
-                                snackbarHostState = scaffoldState.snackbarHostState,
-                                modifier = Modifier.align(Alignment.BottomCenter)
-                            ) {
-                                scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
                             }
                         }
                     }
